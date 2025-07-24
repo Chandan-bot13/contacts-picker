@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><title>Contacts Access</title></head>
+<body>
+  <h2>Get Contacts from Your Device</h2>
+  <button id="getContactsBtn">Pick Contacts</button>
+  <pre id="output"></pre>
+
+  <script>
+    const btn = document.getElementById('getContactsBtn');
+    const output = document.getElementById('output');
+
+    btn.addEventListener('click', async () => {
+      try {
+        const props = ['name', 'tel', 'email'];
+        const opts = {multiple: true};
+
+        const contacts = await navigator.contacts.select(props, opts);
+        output.textContent = JSON.stringify(contacts, null, 2);
+      } catch (err) {
+        output.textContent = 'Error or permission denied: ' + err;
+      }
+    });
+  </script>
+</body>
+</html>
